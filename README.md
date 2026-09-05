@@ -1,4 +1,4 @@
-# Machine Learning Projects
+﻿# Machine Learning Projects
 
 Nine machine-learning projects from one semester of *Introduction to Machine Learning* (NTHU IEEM, 2026), covering tabular classification, time-series forecasting, computer vision, Chinese NLP, and sign-language recognition — with every reported number traced back to the notebook that produced it.
 
@@ -160,8 +160,8 @@ Every project runs from a notebook. There is no build step and no server.
 **1. Clone and create an environment.**
 
 ```bash
-git clone https://github.com/stephanieyenyu/Machine-Learning-Projects.git
-cd Machine-Learning-Projects
+git clone https://github.com/stephanieyenyu/Machine_Learning_Project-NTHU.git
+cd Machine_Learning_Project-NTHU
 python3.12 -m venv .venv && source .venv/bin/activate
 pip install -r requirements.txt      # see docs/known-issues.md — not yet committed
 ```
@@ -206,3 +206,4 @@ The ASL sign-language case study was a three-person team project. Authorship and
 Code in this repository is released under the MIT Licence — see [`LICENSE`](LICENSE).
 
 This does not extend to third-party material. Datasets keep their original licences (UCI, Kaggle competition rules, scikit-learn's bundled digits data). CKIPtagger models are licensed by CKIP Lab. Course handouts, assignment specifications, and supplied starter code remain the property of the course instructor and are not relicensed here.
+
