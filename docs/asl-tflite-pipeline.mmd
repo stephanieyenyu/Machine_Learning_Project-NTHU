@@ -1,0 +1,17 @@
+%% ASL recognition: deployment constraints drove the architecture.
+%% Reconstructed from Kaggle Case Study.pdf. No code in this repository.
+flowchart LR
+    subgraph C[Competition constraints]
+      C1[TFLite &lt; 40 MB]
+      C2[&lt; 100 ms per video]
+      C3[Preprocessing must be<br/>TF tensor ops]
+      C4[Variable-length input]
+    end
+
+    R[Raw landmarks<br/>n_frames × 543 × 3] --> P[Preprocessing layer<br/>select keypoints<br/>nose-centre<br/>robust scale<br/>velocity features]
+    P --> M[1D CNN → Transformer]
+    M --> O[250-class softmax]
+    O --> A[argmax → predicted word]
+
+    C -.constrains.-> P
+    C -.constrains.-> M

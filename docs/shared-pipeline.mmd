@@ -1,0 +1,11 @@
+%% Shared five-stage pipeline used by EX1, EX3, HW1, HW2, HW3, HW4.
+%% Rendered inline in docs/architecture.md. Edit this file, not the copy there.
+flowchart LR
+    A[Acquire<br/>Kaggle CLI · gdown · manual upload] --> B[Clean<br/>fill missing · drop leaks · merge tables]
+    B --> C[Encode<br/>label · frequency · target encoding]
+    C --> D[Train<br/>K-fold CV · early stopping]
+    D --> E[Post-process<br/>threshold tuning · blending · voting]
+    E --> F[(submission.csv<br/>or metric)]
+
+    style C fill:#fff3cd,stroke:#b8860b
+    style E fill:#fff3cd,stroke:#b8860b

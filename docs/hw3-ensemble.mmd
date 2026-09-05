@@ -1,0 +1,22 @@
+%% HW3 irrigation-need: two model families, threshold tuning, conditional voting.
+%% Numbers are OOF balanced accuracy. Sources in docs/metrics.md.
+flowchart TD
+    T[train.csv · 630k rows] --> FE[Digit extraction<br/>magnitude rounding<br/>frequency encoding]
+    FE --> KF[5-fold KFold seed 42]
+    KF --> TE[TargetEncoder<br/>fitted per fold]
+    TE --> LGB[LightGBM<br/>inverse-frequency weights<br/>early stopping 250]
+    LGB --> OOF[OOF probabilities<br/>0.979227]
+    OOF --> OPT[Optuna 200 trials<br/>per-class multipliers]
+    OPT --> S1[0.98030 submission<br/>0.979549 OOF]
+
+    T --> CB[CatBoost<br/>10-fold outer / 5-fold inner<br/>601 to 829 features]
+    CB --> CBO[OOF 0.969762]
+    CBO --> NM[Nelder-Mead<br/>class weight vs log bias]
+    NM --> S2[0.975697 OOF]
+
+    S1 --> V{Conditional voting}
+    S2 --> V
+    E1[0.97954.csv] --> V
+    E2[0.98017.csv] --> V
+    E3[0.98018.csv] --> V
+    V --> OUT[(270,000 rows<br/>269,202 by consensus<br/>798 by best model)]
