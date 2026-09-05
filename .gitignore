@@ -1,0 +1,38 @@
+# --- Credentials -- never commit these -------------------------------------
+.env
+.env.*
+!.env.example
+kaggle.json
+.kaggle/
+*.pem
+*credentials*.json
+service-account*.json
+
+# --- Datasets and model weights --------------------------------------------
+# Kept out because they are large and re-downloadable.
+# Exception: the HW3 submission files are needed to reproduce the final
+# ensemble -- see issue 2.1 in docs/known-issues.md.  Uncomment when committed.
+*.csv
+*.npy
+*.pkl
+*.h5
+*.tflite
+*.zip
+# !HW3/**/*.csv
+
+# --- Python ----------------------------------------------------------------
+__pycache__/
+*.pyc
+*.pyo
+.ipynb_checkpoints/
+.venv/
+venv/
+env/
+*.egg-info/
+
+# --- OS and editor junk ----------------------------------------------------
+desktop.ini
+.DS_Store
+Thumbs.db
+.vscode/
+.idea/
