@@ -1,6 +1,6 @@
 # Architecture
 
-## Scope of this document
+## Scope of This Document
 
 This repository has no system architecture in the usual sense. There is no service, no API, no database, no deployment target, and no shared library. Each project is a standalone notebook that reads a dataset and writes either a metric or a submission file.
 
@@ -8,7 +8,7 @@ What this document describes instead is the **pipeline structure the projects sh
 
 ---
 
-## The shared pipeline
+## The Shared Pipeline
 
 Seven of the nine projects — EX1, EX3, HW1, HW2, HW3, HW4, and the tabular half of EX2 — follow the same five stages.
 
@@ -23,7 +23,7 @@ flowchart LR
 
 Stage boundaries are not enforced by any code structure. They exist as cell groups inside each notebook. Nothing is importable, and no stage is reused across projects.
 
-### Where the interesting work happens
+### Where the Interesting Work Happens
 
 Stages 1 and 2 are routine. Almost every point of difference between a mediocre and a good result in this repository sits in stages **3** and **5**.
 
@@ -37,9 +37,9 @@ Stage 5 is worth naming separately because it is invisible in most write-ups. In
 
 ---
 
-## Per-project data flow
+## Per-Project Data Flow
 
-### EX1 — Heart failure
+### EX1 — Heart Failure
 
 ```
 Heart Failure Clinical Records.csv (manual upload)
@@ -75,7 +75,7 @@ train.csv, test.csv
 
 The 100-model loop is seed averaging, not boosting. Each model is trained independently on the same data with a different seed; only the predictions are combined.
 
-### EX4 — Computer vision
+### EX4 — Computer Vision
 
 ```
 ex4.jpg
@@ -116,7 +116,7 @@ Google Drive CSV (by file ID) → 1197 × 15
 
 Eight sequential transforms, each answering one assignment question. No model is trained.
 
-### HW2 — Store sales
+### HW2 — Store Sales
 
 ```
 Kaggle CLI download
@@ -133,7 +133,7 @@ Kaggle CLI download
 
 Two design choices carry the result. Filtering to 2017 onward trades sample count for distribution stability. Fitting the label encoders on the combined train+test vocabulary avoids unseen-category failures at prediction time — acceptable here because the test features are public, but it would be leakage in a production setting.
 
-### HW3 — Irrigation need
+### HW3 — Irrigation Need
 
 ```mermaid
 flowchart TD
@@ -162,7 +162,7 @@ The target encoder is fitted **inside** each fold, on that fold's training porti
 
 The voting step reads four CSV files that are not in this repository. See [`known-issues.md`](known-issues.md).
 
-### HW4 — Pit stop prediction
+### HW4 — Pit Stop Prediction
 
 ```
 train.csv, test.csv (auto-located under /kaggle/input)
@@ -178,7 +178,7 @@ train.csv, test.csv (auto-located under /kaggle/input)
 
 `Driver` is dropped on purpose: driver identity does not generalise to unseen drivers in the test set.
 
-### ASL sign-language recognition
+### ASL Sign-Language Recognition
 
 No code in this repository. The flow below is reconstructed from `Kaggle Case Study.pdf`.
 
@@ -204,7 +204,7 @@ The constraint block is the point of the diagram. Preprocessing could not be don
 
 ---
 
-## Cross-cutting notes
+## Cross-Cutting Notes
 
 **Two runtimes, incompatible assumptions.** EX1–EX5 and HW1–HW2 target Google Colab: they call `drive.mount('/content/drive')`, use `files.upload()` / `files.download()`, and hardcode `/content/...` paths. HW3 and HW4 target Kaggle Notebooks: HW4 walks `/kaggle/input` to locate `train.csv`. Neither set runs unmodified in the other environment, or locally.
 

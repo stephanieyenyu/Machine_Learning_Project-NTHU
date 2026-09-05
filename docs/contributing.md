@@ -1,12 +1,12 @@
-# Authorship and contributing
+# Authorship and Contributing
 
-## Why this file exists
+## Why This File Exists
 
 Most of this repository is solo coursework. One project is not. Anyone reading this repo as a portfolio needs to be able to tell which is which without guessing, and the README's "our approach" phrasing did not make that clear. This file fixes that.
 
 ---
 
-## Authorship by project
+## Authorship by Project
 
 | Project | Author |
 |---|---|
@@ -24,13 +24,13 @@ Most of this repository is solo coursework. One project is not. Anyone reading t
 
 ---
 
-## ASL sign-language case study — team project
+## ASL Sign-Language Case Study — Team Project
 
 `Kaggle Case Study.pdf` is joint work by three students from IEEM class 27: **陳暄承**, **林彥妤**, and **倪歆絜**. The names appear on the title slide of the deck.
 
 The repository holds only the slide deck. No code for this project is committed, so contributions cannot be traced through git history. That makes an explicit written statement the only record.
 
-### Notebook provenance — state this explicitly
+### Notebook Provenance — State This Explicitly
 
 The submission screenshot on the deck's final slide shows both entries running in a notebook titled **"1st place solution - inference"**. That is the ordinary Kaggle pattern of forking a public notebook, replacing its contents, and leaving the original title in place. It is unremarkable to anyone who works on Kaggle, and completely opaque to anyone who does not.
 
@@ -38,7 +38,7 @@ The deck's own numbers show the model was the team's: the real first-place solut
 
 Say this in one sentence rather than leaving a reviewer to reconstruct it. Name the notebook that was forked, and state that the architecture and preprocessing inside it are the team's own work. Also note that both submissions were **after the deadline**, so they carry a score but no leaderboard rank.
 
-### Contribution breakdown
+### Contribution Breakdown
 
 <!-- TODO: fill this in. Delete any row that does not apply, and add rows for
      work not listed. Anything left as "—" will read as unclaimed. -->
@@ -59,7 +59,7 @@ Say this in one sentence rather than leaving a reviewer to reconstruct it. Name 
 
 ---
 
-## AI assistance
+## AI Assistance
 
 The ASL project used AI-assisted code generation as its primary development method, and the slide deck documents this openly — including the failures. The first AI-generated model trained successfully but could not be scored by Kaggle because of format errors, and the deck records the specific causes: mismatched input and output shapes, invalid TFLite packaging, preprocessing that differed between training and inference, and inference that ran too slowly to pass the time limit.
 
@@ -73,18 +73,18 @@ Several other notebooks in this repository were also written with AI assistance 
 
 ## Contributing
 
-This repository is a coursework archive, not an active project. It is not accepting feature contributions. The conventions below apply if you are working with the author on it, or picking up any of the open items in [`known-issues.md`](known-issues.md).
+This repository is a coursework archive, not an active project. It is not accepting feature contributions. The conventions below apply if you are working with the author on it, or picking up any of the open items in [`known-issues.md`](known-issues.md), which are numbered A-1 to D-6.
 
-### Before you start
+### Before You Start
 
-Open an issue naming the item from `known-issues.md` you intend to address. Several of them are blocked on information only the author has — the missing Kaggle scores in particular — and cannot be resolved from the code.
+Open an issue naming the entry from `known-issues.md` you intend to address, by its identifier. Several of them are blocked on information only the author has — the missing Kaggle scores in particular — and cannot be resolved from the code.
 
-### Branches and commits
+### Branches and Commits
 
 ```
-fix/hw3-commit-ensemble-inputs
-docs/record-hw2-submission-score
-chore/remove-desktop-ini
+fix/c2-commit-hw3-ensemble-inputs
+docs/d1-record-asl-submission-status
+chore/d4-rename-essemble
 ```
 
 Write commit messages in the imperative, and say what changed and why:
@@ -97,7 +97,7 @@ matches the score in the filename. The first misled anyone reading
 the hyperparameters.
 ```
 
-### Working with notebooks
+### Working with Notebooks
 
 **Keep cell outputs.** Do not strip them. In this repository the printed outputs *are* the evidence — every figure in [`metrics.md`](metrics.md) is sourced from a cell output. A notebook with outputs cleared loses its provenance.
 
@@ -105,16 +105,16 @@ the hyperparameters.
 
 **Do not reorder cells** without rerunning the whole notebook. Colab exports keep execution counts, and out-of-order counts make a notebook impossible to audit.
 
-### Never commit
+### Never Commit
 
 - `kaggle.json`, `.env`, or any file containing an API token
 - Datasets — `.gitignore` excludes `*.csv`, `*.npy`, `*.pkl`, `*.h5`
 - Model weights, especially the 1.88 GB CKIP archive
 - OS metadata: `desktop.ini`, `.DS_Store`, `Thumbs.db`
 
-The one deliberate exception is the four HW3 submission CSVs, which need committing so the final ensemble becomes reproducible. See issue 2.1 in `known-issues.md`.
+The one deliberate exception is the four HW3 submission CSVs, which need committing so the final ensemble becomes reproducible. See C-2 in [`known-issues.md`](known-issues.md).
 
-### Changing a documented number
+### Changing a Documented Number
 
 Any change to a metric touches three places. Update all of them in one commit:
 

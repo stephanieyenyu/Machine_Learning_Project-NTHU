@@ -1,20 +1,41 @@
-# Metrics provenance
+# Metrics
 
-Every number quoted in the README, with the file that produced it and what it actually measures.
+Every number quoted in the README, with the artifact that produced it and what it actually
+measures. The purpose is to let a reader check each figure rather than accept it, and to mark
+plainly the ones that cannot be checked from this repository.
 
-Three kinds of number appear in this repository, and they are not comparable:
+**Snapshot** 2026-09-05
+**Course** *Introduction to Machine Learning*, NTHU IEEM, February – June 2026
+**Derived from** 14 notebooks · 7 scripts · 4 written reports · 2 screenshots
+
+Three kinds of number appear here and they are not interchangeable:
 
 - **OOF** — out-of-fold cross-validation score, computed locally on training data.
 - **Public LB** — Kaggle public leaderboard, scored on a subset of the test set.
 - **Private LB** — Kaggle private leaderboard, the final ranking.
 
-Where a number was read off a screenshot, a filename, or a written report rather than program output, it is marked. Those are the weakest links in this document.
+---
 
-Sources used: every notebook and script in the repository, plus the four written reports — `HW2/Deal With the Problem.pdf`, `HW3/Homework3_112034038_林彥妤.docx`, `HW4/Homework4_112034038_林彥妤.docx`, and `Kaggle Case Study.pdf`.
+## Sources
+
+| Artifact | What it holds |
+|---|---|
+| 14 notebooks | Cell outputs — every OOF score, fold score and printed diagnostic |
+| 7 scripts | Hyperparameters, cross-validation setup, feature engineering |
+| `HW2/Deal With the Problem.pdf` | HW2 ablation study and model-choice reasoning |
+| `HW3/Homework3_112034038_林彥妤.docx` | HW3 final Kaggle score, progression, ablation study |
+| `HW4/Homework4_112034038_林彥妤.docx` | HW4 final Kaggle score, three-model weights, ablation study |
+| `Kaggle Case Study.pdf` | Sign-language scores, step progression, submission screenshot |
+| `EX3/112034038_林彥妤.png` | Titanic leaderboard row — sole evidence for 0.80143 |
+| `HW2/0.40045.py`, `0.40115.py` | Filenames are the sole evidence for those two scores |
+
+Where a number was read off a screenshot, a filename or a written report rather than program
+output, it is marked at the point of use. Those are the weakest links in this document and they
+are collected under [Interpretation](#interpretation).
 
 ---
 
-## EX1 — Heart failure classification
+## EX1 — Heart Failure Classification
 
 **Source:** `EX1/112034038_林彥妤.ipynb`, final cell output.
 
@@ -60,7 +81,7 @@ This is the only evidence for the number. There is no submission file and no log
 
 ---
 
-## EX4 — Computer vision
+## EX4 — Computer Vision
 
 No quantitative metric. The deliverable is `EX4/112034038_林彥妤.jpg`, the Canny output.
 
@@ -87,7 +108,7 @@ The NER output for sentence 1 is `{(0,5,'ORG','中央氣象署'), (8,10,'DATE','
 
 ---
 
-## HW1 — Data preprocessing
+## HW1 — Data Preprocessing
 
 **Source:** `HW1/112034038_林彥妤.ipynb`, cell outputs.
 
@@ -114,7 +135,7 @@ All four off-diagonal correlations with `targeted_productivity` are below 0.09 i
 
 ---
 
-## HW2 — Kaggle store sales
+## HW2 — Kaggle Store Sales
 
 **Reported:** best Public LB **0.40045** RMSLE.
 
@@ -136,7 +157,7 @@ All four off-diagonal correlations with `targeted_productivity` are below 0.09 i
 
 **Why `log1p` / `expm1`.** Two reasons, both in the report. First, Kaggle scores this competition with RMSLE, which logs both prediction and truth before computing error. XGBoost minimises plain RMSE. Training on `log1p(sales)` makes the objective XGBoost optimises equal to the objective Kaggle scores — a target transformation. Second, store sales are long-tailed: usually low, occasionally enormous on holidays. Logging compresses the tail so the distribution is closer to symmetric and training is more stable. Predictions are inverted with `expm1` and negatives clipped to zero, because sales cannot be negative and RMSLE is undefined for them.
 
-### HW2 ablation study
+### HW2 Ablation Study
 
 From `HW2/Deal With the Problem.pdf`. No scores are attached to these experiments — only the direction of the change.
 
@@ -152,7 +173,7 @@ This explains the hyperparameter table above. The depth values of 9 and 11 were 
 
 ---
 
-## HW3 — Kaggle irrigation need
+## HW3 — Kaggle Irrigation Need
 
 The competition metric is balanced accuracy. The notebooks implement it directly as the mean of per-class recall:
 
@@ -235,7 +256,7 @@ Final score     : 0.975697
 
 **Scale check.** The gain is real but tiny — 798 contested rows out of 270,000, worth 0.00024 balanced accuracy. Describe it as what it is: a defensive ensemble that protects the best model's floor while letting a consensus override it on the small set of rows where three independent models all disagree with it.
 
-### HW3 progression, from the written report
+### HW3 Progression
 
 | Stage | Method | Score |
 |---|---|---|
@@ -243,7 +264,7 @@ Final score     : 0.975697
 | 2 | Add out-of-fold target encoding, tune with Optuna | 0.98030 |
 | 3 | Conditional voting across four submissions | **0.98054** |
 
-### HW3 ablation study
+### HW3 Ablation Study
 
 Three things were tried and rejected. All three are recorded in the report with reasons.
 
@@ -255,7 +276,7 @@ Three things were tried and rejected. All three are recorded in the report with 
 
 The pseudo-labelling result is the most quotable number here. It is a clean, self-diagnosed negative result with a measured cost.
 
-### Two discrepancies between the report and the committed code
+### Two Discrepancies Between the Report and the Committed Code
 
 **Learning rate.** The report states Optuna was used to lower LightGBM's learning rate to 0.02. The committed `0.98030.py` has `'learning_rate': 0.05`, and its Optuna study searches per-class probability multipliers, not the learning rate. Either the report describes a run that was not committed, or the description is inaccurate. Worth resolving before this repository is shown to anyone.
 
@@ -265,7 +286,7 @@ The pseudo-labelling result is the most quotable number here. It is a clean, sel
 
 ---
 
-## HW4 — Kaggle F1 pit stop
+## HW4 — Kaggle F1 Pit Stop
 
 **Source:** `HW4/Homework4_112034038_林彥妤.ipynb`, printed output. All figures are **OOF AUC**. No leaderboard score is recorded.
 
@@ -293,7 +314,7 @@ The pseudo-labelling result is the most quotable number here. It is a clean, sel
 
 **Reading the blend gain.** The two-model blend beats the best single model by 0.00047 AUC. Fold-to-fold spread within LightGBM alone is 0.00193 (0.94668 to 0.94861), four times larger. The blend is probably a real but very small improvement; a single number cannot separate it from fold noise. The 0.6 / 0.4 weights were chosen by hand, not searched.
 
-### The committed notebook is not the submitted model
+### The Committed Notebook Is Not the Submitted Model
 
 This is the most important discrepancy in the repository.
 
@@ -311,7 +332,7 @@ Two consequences. The README's old headline of 0.94802 was an out-of-fold number
 
 **Weight rationale, from the report.** CatBoost at 40% to lead on categorical features; LightGBM at 35% for fine-grained numeric boundaries; XGBoost at 25% as a regularised floor.
 
-### The AUC plateau
+### The AUC Plateau
 
 The most interesting observation in the HW4 report, and it is absent from the README.
 
@@ -319,7 +340,7 @@ Three consecutive submissions returned **exactly 0.94714** despite a changed Lig
 
 That is a correct and non-obvious read of the metric, and it is worth surfacing.
 
-### HW4 ablation study
+### HW4 Ablation Study
 
 | Attempt | Result | Recorded reason |
 |---|---|---|
@@ -327,7 +348,7 @@ That is a correct and non-obvious read of the metric, and it is worth surfacing.
 | Raise the XGBoost weight to 0.45 | fell below baseline | The dataset is synthetic. XGBoost proved over-sensitive to its generated boundaries and the prediction distribution deformed. Cut back to 0.25. |
 | Target encoding or pseudo-labelling to force a breakthrough | **not attempted, deliberately** | Judged too likely to leak and to overfit the public leaderboard at the cost of the private one. A deliberate decision to protect generalisation over public rank. |
 
-### Smaller mismatches
+### Smaller Mismatches
 
 - The report names the second derived feature **`Deg_Momentum`**; the notebook calls it **`Deg_Acceleration`**. Same formula, two names.
 - The report gives a feature-engineering-stage OOF of **0.94795**; the committed notebook prints **0.94802** for its blend and **0.94755** for LightGBM alone. None of the three matches another, because they come from different versions.
@@ -336,7 +357,7 @@ That is a correct and non-obvious read of the metric, and it is worth surfacing.
 
 ---
 
-## ASL sign-language recognition
+## ASL Sign-Language Recognition
 
 **Source:** `Kaggle Case Study.pdf`, final slide, which includes a screenshot of the Kaggle submissions page. Team project — see `contributing.md`.
 
@@ -347,7 +368,7 @@ That is a correct and non-obvious read of the metric, and it is worth surfacing.
 
 Metric is top-1 accuracy over roughly 40,000 test videos.
 
-### What the submission screenshot actually shows
+### What the Submission Screenshot Actually Shows
 
 Two rows, both marked **"Succeeded (after deadline)"**:
 
@@ -391,9 +412,11 @@ The 0.008 → 0.540 → 0.743 figures are recorded in the slide deck, not in any
 
 ---
 
-## Summary of weak links
+## Interpretation
 
-Ordered by how much they would matter to someone verifying this repository.
+### The weakest evidence, ordered by what it would cost
+
+Ordered by how much each would matter to someone verifying this repository.
 
 | # | Number | Weakness |
 |---|---|---|
