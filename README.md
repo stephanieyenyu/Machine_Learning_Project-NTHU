@@ -21,12 +21,12 @@ committed here, and both are named below rather than buried.**
 
 ---
 
-![Canny edge detection on a rotated image](EX4/112034038_林彥妤.jpg)
+![Canny edge detection on a rotated image](EX4/opencv-canny-registration-output.jpg)
 
 *EX4 — median filter → 45° rotation → Canny edge detection, with ORB and RANSAC homography
 registering the rotated frame back onto the original.*
 
-![Kaggle leaderboard row showing score 0.80143](EX3/112034038_林彥妤.png)
+![Kaggle leaderboard row showing score 0.80143](EX3/titanic-tfdf-ensemble-leaderboard.png)
 
 *EX3 — public leaderboard standing for the 100-seed TF-DF ensemble.*
 
@@ -315,24 +315,24 @@ repository shows is how the problems were diagnosed, not that the results genera
 ├── Kaggle Case Study.pdf                       Sign-language slide deck — three-person team
 │
 ├── EX1/
-│   └── 112034038_林彥妤.ipynb                   Heart failure — 4 classifiers ranked by F1
+│   └── heart-failure-classification.ipynb     Heart failure — 4 classifiers ranked by F1
 ├── EX2/
-│   └── 112034038_林彥妤.ipynb                   t-SNE on sklearn digits, classes 0–5
+│   └── tsne-digit-embedding.ipynb              t-SNE on sklearn digits, classes 0–5
 ├── EX3/
-│   ├── 112034038_林彥妤.ipynb                   Titanic — 100-seed TF-DF ensemble
-│   ├── 112034038_林彥妤.py                      Same pipeline as a script
-│   └── 112034038_林彥妤.png                     Leaderboard screenshot — sole evidence for 0.80143
+│   ├── titanic-tfdf-ensemble.ipynb             Titanic — 100-seed TF-DF ensemble
+│   ├── titanic-tfdf-ensemble.py                Same pipeline as a script
+│   └── titanic-tfdf-ensemble-leaderboard.png   Leaderboard screenshot — sole evidence for 0.80143
 ├── EX4/
-│   ├── 112034038_林彥妤.ipynb                   OpenCV — denoise, rotate, Canny, ORB registration
-│   └── 112034038_林彥妤.jpg                     Canny output
+│   ├── opencv-canny-registration.ipynb         OpenCV — denoise, rotate, Canny, ORB registration
+│   └── opencv-canny-registration-output.jpg    Canny output
 ├── EX5/
-│   └── 112034038_林彥妤.ipynb                   CKIPtagger — Chinese segmentation, POS, NER
+│   └── chinese-nlp-ckiptagger.ipynb            CKIPtagger — Chinese segmentation, POS, NER
 ├── HW1/
-│   └── 112034038_林彥妤.ipynb                   Garment productivity — 8 preprocessing operations
+│   └── garment-worker-productivity.ipynb       Garment productivity — 8 preprocessing operations
 ├── HW2/
-│   ├── Homework2_112034038_林彥妤.ipynb         Store sales — submitted config, 2500 / 0.016 / depth 11
-│   ├── Homework2_112034038_林彥妤.py            Script form of the above
-│   ├── Homework2_112034038_林彥妤.docx          Written report
+│   ├── store-sales-forecasting.ipynb           Store sales — submitted config, 2500 / 0.016 / depth 11
+│   ├── store-sales-forecasting.py              Script form of the above
+│   ├── store-sales-forecasting-report.docx     Written report
 │   ├── 0.40045.ipynb                           Best recorded run — 2000 / 0.020 / depth 11
 │   ├── 0.40045.py                              Script form
 │   ├── 0.40115.ipynb                           Earlier run — 1800 / 0.025 / depth 9
@@ -340,9 +340,9 @@ repository shows is how the problems were diagnosed, not that the results genera
 │   ├── Deal With the Problem.docx              Ablation study and model-choice reasoning
 │   └── Deal With the Problem.pdf               PDF export of the same
 ├── HW3/
-│   ├── Homework3_112034038_林彥妤.ipynb         Conditional-voting ensemble — the 0.98054 submission
-│   ├── Homework3_112034038_林彥妤.py            Script form
-│   ├── Homework3_112034038_林彥妤.docx          Written report, including the ablation study
+│   ├── irrigation-need-classification.ipynb    Conditional-voting ensemble — the 0.98054 submission
+│   ├── irrigation-need-classification.py       Script form
+│   ├── irrigation-need-classification-report.docx  Written report, including the ablation study
 │   ├── code/
 │   │   ├── 0.98030.ipynb                       LightGBM, per-fold target encoding, Optuna weights
 │   │   ├── 0.98030.py                          Script form
@@ -352,10 +352,10 @@ repository shows is how the problems were diagnosed, not that the results genera
 │       └── irrigation-need-catboost-threshold-optimization.ipynb
 │                                               CatBoost, 10×5 nested CV, Nelder–Mead threshold search
 ├── HW4/
-│   ├── Homework4_112034038_林彥妤.ipynb         Two-model blend — NOT the submitted model
-│   └── Homework4_112034038_林彥妤.docx          Written report describing the three-model submission
+│   ├── f1-pitstop-prediction.ipynb             Two-model blend — NOT the submitted model
+│   └── f1-pitstop-prediction-report.docx       Written report describing the three-model submission
 ├── One Page Sum/
-│   └── 112034038_林彥妤.pdf                     One-page model-selection reference sheet
+│   └── model-selection-reference.pdf           One-page model-selection reference sheet
 │
 └── docs/
     ├── metrics.md                              Derivation of every figure in this README

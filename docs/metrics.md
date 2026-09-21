@@ -23,10 +23,10 @@ Three kinds of number appear here and they are not interchangeable:
 | 14 notebooks | Cell outputs — every OOF score, fold score and printed diagnostic |
 | 7 scripts | Hyperparameters, cross-validation setup, feature engineering |
 | `HW2/Deal With the Problem.pdf` | HW2 ablation study and model-choice reasoning |
-| `HW3/Homework3_112034038_林彥妤.docx` | HW3 final Kaggle score, progression, ablation study |
-| `HW4/Homework4_112034038_林彥妤.docx` | HW4 final Kaggle score, three-model weights, ablation study |
+| `HW3/irrigation-need-classification-report.docx` | HW3 final Kaggle score, progression, ablation study |
+| `HW4/f1-pitstop-prediction-report.docx` | HW4 final Kaggle score, three-model weights, ablation study |
 | `Kaggle Case Study.pdf` | Sign-language scores, step progression, submission screenshot |
-| `EX3/112034038_林彥妤.png` | Titanic leaderboard row — sole evidence for 0.80143 |
+| `EX3/titanic-tfdf-ensemble-leaderboard.png` | Titanic leaderboard row — sole evidence for 0.80143 |
 | `HW2/0.40045.py`, `0.40115.py` | Filenames are the sole evidence for those two scores |
 
 Where a number was read off a screenshot, a filename or a written report rather than program
@@ -37,7 +37,7 @@ are collected under [Interpretation](#interpretation).
 
 ## EX1 — Heart Failure Classification
 
-**Source:** `EX1/112034038_林彥妤.ipynb`, final cell output.
+**Source:** `EX1/heart-failure-classification.ipynb`, final cell output.
 
 | Model | F1 (as printed) | Rounded |
 |---|---|---|
@@ -58,7 +58,7 @@ are collected under [Interpretation](#interpretation).
 
 ## EX2 — t-SNE
 
-**Source:** `EX2/112034038_林彥妤.ipynb`.
+**Source:** `EX2/tsne-digit-embedding.ipynb`.
 
 - `X.shape` printed as `(1083, 64)` — 1,083 samples, 64 features, from `load_digits(n_class=6)`.
 - No accuracy metric. The deliverable is a scatter plot.
@@ -71,11 +71,11 @@ are collected under [Interpretation](#interpretation).
 
 **Reported:** Public LB **0.80143**.
 
-**Source:** `EX3/112034038_林彥妤.png` — a screenshot of the leaderboard row. Team `IEEM26_112034038`, rank 825, score 0.80143, 3 entries.
+**Source:** `EX3/titanic-tfdf-ensemble-leaderboard.png` — a screenshot of the leaderboard row. Team `IEEM26_112034038`, rank 825, score 0.80143, 3 entries.
 
 This is the only evidence for the number. There is no submission file and no logged score in the notebook. If the screenshot is lost, the number is unverifiable.
 
-**How the predictions were made.** `EX3/112034038_林彥妤.py` trains 100 `GradientBoostedTreesModel` instances with `random_seed=i` for `i` in 0–99 and `honest=True`, averages the predicted probabilities, and labels a passenger as survived when the average is **`>= 0.5`** (the code uses `>=`, not `>`).
+**How the predictions were made.** `EX3/titanic-tfdf-ensemble.py` trains 100 `GradientBoostedTreesModel` instances with `random_seed=i` for `i` in 0–99 and `honest=True`, averages the predicted probabilities, and labels a passenger as survived when the average is **`>= 0.5`** (the code uses `>=`, not `>`).
 
 **Features.** `Name` normalised then tokenised with `tf.strings.split`. `Ticket` split into `Ticket_number` and `Ticket_item`. `Ticket` and `PassengerId` are excluded from the model.
 
@@ -83,7 +83,7 @@ This is the only evidence for the number. There is no submission file and no log
 
 ## EX4 — Computer Vision
 
-No quantitative metric. The deliverable is `EX4/112034038_林彥妤.jpg`, the Canny output.
+No quantitative metric. The deliverable is `EX4/opencv-canny-registration-output.jpg`, the Canny output.
 
 Parameters, for reproducibility:
 
@@ -110,7 +110,7 @@ The NER output for sentence 1 is `{(0,5,'ORG','中央氣象署'), (8,10,'DATE','
 
 ## HW1 — Data Preprocessing
 
-**Source:** `HW1/112034038_林彥妤.ipynb`, cell outputs.
+**Source:** `HW1/garment-worker-productivity.ipynb`, cell outputs.
 
 | Figure | Value | Where it came from |
 |---|---|---|
@@ -147,7 +147,7 @@ All four off-diagonal correlations with `targeted_productivity` are below 0.09 i
 |---|---|---|---|---|---|---|
 | `0.40115.py` | 1800 | 0.025 | 9 | 0.85 | 7 | 0.40115 |
 | `0.40045.py` | 2000 | 0.020 | 11 | 0.80 | 5 | 0.40045 |
-| `Homework2_112034038_林彥妤.py` | 2500 | 0.016 | 11 | 0.80 | 6 | **none** |
+| `store-sales-forecasting.py` | 2500 | 0.016 | 11 | 0.80 | 6 | **none** |
 
 **Open question.** The submitted file `Homework2_...py` has no recorded score. The README previously implied it was the best run, which contradicts "best public score 0.40045". Either it scored worse than 0.40045, or it was never submitted. This needs resolving from the Kaggle submission history — see `known-issues.md`.
 
@@ -234,7 +234,7 @@ Final score     : 0.975697
 
 **Setup.** 10-fold outer, 5-fold inner nested cross-validation. Feature count grows from 601 columns before target encoding to 829 at training time. The original (non-synthetic) dataset is used to compute category-level priors — smoothed mean, weight of evidence, entropy — without appending its rows to training. Additional numeric features record each value's position in the reference distribution: quantile rank, z-score, distance from conditional and global median. Optimisation via `scipy.optimize.minimize` with Nelder–Mead.
 
-### Final submission — `HW3/Homework3_112034038_林彥妤.py`
+### Final submission — `HW3/irrigation-need-classification.py`
 
 **Printed output:**
 
@@ -252,7 +252,7 @@ Final score     : 0.975697
 
 **Logic.** Three submission files (0.97954, 0.98017, 0.98018) vote. Where all three agree, the consensus label is used. Where they disagree, the label from 0.98030 is used.
 
-**Final Kaggle score: 0.98054.** Recorded in the written report (`HW3/Homework3_112034038_林彥妤.docx`), under *Final Decision*. This is the score of the submitted conditional-voting ensemble, and it beats the best single model (0.98030) by **+0.00024**. It is the true final submission, and it is not reproducible from this repository — the script that produced it needs four input CSVs excluded by `.gitignore` (see below). The README's headline result is 0.98030, the best score a reader can actually regenerate from committed code; 0.98054 is stated alongside it as the historical final score, not presented as if a reader could verify it.
+**Final Kaggle score: 0.98054.** Recorded in the written report (`HW3/irrigation-need-classification-report.docx`), under *Final Decision*. This is the score of the submitted conditional-voting ensemble, and it beats the best single model (0.98030) by **+0.00024**. It is the true final submission, and it is not reproducible from this repository — the script that produced it needs four input CSVs excluded by `.gitignore` (see below). The README's headline result is 0.98030, the best score a reader can actually regenerate from committed code; 0.98054 is stated alongside it as the historical final score, not presented as if a reader could verify it.
 
 **Scale check.** The gain is real but tiny — 798 contested rows out of 270,000, worth 0.00024 balanced accuracy. Describe it as what it is: a defensive ensemble that protects the best model's floor while letting a consensus override it on the small set of rows where three independent models all disagree with it.
 
@@ -288,7 +288,7 @@ The pseudo-labelling result is the most quotable number here. It is a clean, sel
 
 ## HW4 — Kaggle F1 Pit Stop
 
-**Source:** `HW4/Homework4_112034038_林彥妤.ipynb`, printed output. All figures are **OOF AUC**. No leaderboard score is recorded.
+**Source:** `HW4/f1-pitstop-prediction.ipynb`, printed output. All figures are **OOF AUC**. No leaderboard score is recorded.
 
 **Per-fold:**
 
@@ -326,7 +326,7 @@ This is the most important discrepancy in the repository.
 | CatBoost | absent | 2,000 iterations |
 | Reported score | OOF AUC 0.94802 | **Kaggle AUC 0.94714** |
 
-`HW4/Homework4_112034038_林彥妤.docx` states under *Final Decision*: the submitted file used LightGBM 35%, XGBoost 25%, CatBoost 40%. No CatBoost appears anywhere in the committed notebook. **The code that produced the final score is not in this repository.**
+`HW4/f1-pitstop-prediction-report.docx` states under *Final Decision*: the submitted file used LightGBM 35%, XGBoost 25%, CatBoost 40%. No CatBoost appears anywhere in the committed notebook. **The code that produced the final score is not in this repository.**
 
 The README's headline is 0.94802 OOF AUC — the number a reader can actually regenerate from the
 committed two-model notebook. It is not a leaderboard score, and is never presented as one. The

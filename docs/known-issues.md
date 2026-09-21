@@ -28,7 +28,7 @@ classification is the point of the document.
 | D-2 | Report and code use different names for the same feature | Documentation | Fix recommended |
 | D-3 | Typos in the HW4 written report | Documentation | **Fixed** |
 | D-4 | Directory `HW3/essemble/` is misspelled | Documentation | **Fixed** |
-| D-5 | Student ID and full name appear in every filename | Privacy | Open |
+| D-5 | Student ID and full name appear in every filename | Privacy | **Fixed, partially** — files renamed, history not yet purged |
 | D-6 | Contribution table for the ASL team is unfilled | Documentation | **Fixed** — collective credit instead |
 
 ---
@@ -37,7 +37,7 @@ classification is the point of the document.
 
 ### A-1　Label encoders fitted on `concat(train, test)` in HW2
 
-**Observation.** `HW2/Homework2_112034038_林彥妤.py` fits every `LabelEncoder` on the
+**Observation.** `HW2/store-sales-forecasting.py` fits every `LabelEncoder` on the
 concatenation of the training and test frames rather than on training data alone.
 
 **Assessment.** This is target-independent. No label information crosses the boundary; only the
@@ -68,7 +68,7 @@ leaderboard score.
 
 ### A-3　EX3 trains 100 models for one submission
 
-**Observation.** `EX3/112034038_林彥妤.py` fits 100 `GradientBoostedTreesModel` instances with
+**Observation.** `EX3/titanic-tfdf-ensemble.py` fits 100 `GradientBoostedTreesModel` instances with
 `random_seed=i` for `i` in 0–99 and averages their predicted probabilities.
 
 **Assessment.** Seed averaging, not boosting. Each model trains independently on the same data;
@@ -83,7 +83,7 @@ only the predictions are combined. It reduces variance from the tree-constructio
 
 ### B-1　HW2's submitted configuration has no recorded score
 
-**Observation.** `HW2/Homework2_112034038_林彥妤.py` uses 2500 trees, learning rate 0.016 and
+**Observation.** `HW2/store-sales-forecasting.py` uses 2500 trees, learning rate 0.016 and
 depth 11. No score is attached to it anywhere — not in a filename, not in a cell output, not in
 the written report. The two scores that exist, 0.40045 and 0.40115, belong to different files.
 
@@ -101,7 +101,7 @@ explanation.
 
 ### B-2　HW3 report and code disagree on the learning rate
 
-**Observation.** `HW3/Homework3_112034038_林彥妤.docx` states that Optuna was used to lower
+**Observation.** `HW3/irrigation-need-classification-report.docx` states that Optuna was used to lower
 LightGBM's learning rate to 0.02. `HW3/code/0.98030.py` sets `'learning_rate': 0.05`, and its
 Optuna study searches per-class probability multipliers over [0.5, 3.0] — not the learning rate.
 
@@ -153,8 +153,8 @@ will run unprompted. Recorded as D-1 for the fix.
 | CatBoost | absent | 2,000 iterations |
 | Score | OOF AUC 0.94802 | Kaggle AUC 0.94714 |
 
-**Verified** against `HW4/Homework4_112034038_林彥妤.ipynb` and
-`HW4/Homework4_112034038_林彥妤.docx`. No occurrence of `CatBoost` appears anywhere in the
+**Verified** against `HW4/f1-pitstop-prediction.ipynb` and
+`HW4/f1-pitstop-prediction-report.docx`. No occurrence of `CatBoost` appears anywhere in the
 notebook.
 
 **Consequence.** Anyone who reads the report and then opens the notebook finds two different
@@ -174,7 +174,7 @@ repository. Neither number is presented as something a reader could verify that 
 
 ### C-2　HW3's final ensemble cannot run — inputs not committed
 
-**Symptom.** `HW3/Homework3_112034038_林彥妤.py` opens `0.97954.csv`, `0.98017.csv`,
+**Symptom.** `HW3/irrigation-need-classification.py` opens `0.97954.csv`, `0.98017.csv`,
 `0.98018.csv` and `0.98030.csv`. The script fails on its first `pd.read_csv`.
 
 **Cause.** `.gitignore` excludes `*.csv`. The four files were never committed.
@@ -201,7 +201,7 @@ committed as a readable record of the design; nothing about the script itself ch
 
 ### C-3　EX5 pins a TensorFlow version that no longer resolves
 
-**Location.** `EX5/112034038_林彥妤.ipynb`, first cell.
+**Location.** `EX5/chinese-nlp-ckiptagger.ipynb`, first cell.
 
 ```python
 !pip install tensorflow==2.8.0
@@ -223,7 +223,7 @@ already pulls in a working TensorFlow, confirmed by cell 2's output in the same 
 ### C-4　EX4's source image was never committed
 
 **Symptom.** The notebook reads `ex4.jpg`. Only the Canny output,
-`EX4/112034038_林彥妤.jpg`, is in the repository.
+`EX4/opencv-canny-registration-output.jpg`, is in the repository.
 
 **Consequence.** The pipeline cannot be rerun. The output image is also the first demo in the
 README, so a reader can see the result and not the input.
@@ -234,7 +234,7 @@ README, so a reader can see the result and not the input.
 
 ### C-5　EX2's t-SNE has no seed
 
-**Location.** `EX2/112034038_林彥妤.ipynb`
+**Location.** `EX2/tsne-digit-embedding.ipynb`
 
 ```python
 TSNE(n_components=2)
@@ -346,8 +346,8 @@ is the team's own — is now in the Sign-language progression section.
 
 | Artifact | Name |
 |---|---|
-| `HW4/Homework4_112034038_林彥妤.docx` | `Deg_Momentum` |
-| `HW4/Homework4_112034038_林彥妤.ipynb` | `Deg_Acceleration` |
+| `HW4/f1-pitstop-prediction-report.docx` | `Deg_Momentum` |
+| `HW4/f1-pitstop-prediction.ipynb` | `Deg_Acceleration` |
 
 Same formula, `Cumulative_Degradation × TyreLife`, two names. The report also gives a
 feature-engineering-stage OOF of 0.94795 where the notebook prints 0.94802 for its blend and
@@ -393,16 +393,22 @@ match.
 
 ### D-5　Student ID and full name appear in every filename
 
-**Observation.** Twenty-plus files are named `112034038_林彥妤.*`.
+**Observation.** Eighteen files were named `112034038_林彥妤.*`.
 
 **Impact.** Two separate consequences. A student ID is a personal identifier attached permanently
-to a public repository and to its git history — renaming files now does not remove it from past
+to a public repository and to its git history — renaming files does not remove it from past
 commits. And for a portfolio audience, `112034038_林彥妤.ipynb` reads as a homework submission
 while `heart-failure-classification.ipynb` reads as a project.
 
 **Fix.** `git mv` to descriptive slugs handles the second problem. Removing the identifier from
 history requires a rewrite and a force-push, which is worth doing before the repository is linked
 from any application.
+
+**Fixed, first problem, 2026-09-21.** All eighteen files renamed via `git mv` to descriptive
+slugs (`heart-failure-classification.ipynb`, `store-sales-forecasting.py`, and so on); every
+reference across README.md, docs/metrics.md and docs/known-issues.md updated to match. Second
+problem — purging the identifier from git history — requires a force-push, which is out of scope
+for this fix; see the repository's commit log around this date for the outcome, if attempted.
 
 ---
 
