@@ -81,7 +81,7 @@ two teammates and is marked as such everywhere it appears.
 
 14 notebooks · 7 scripts · 4 written reports · 5 Kaggle competitions · 9 projects.
 
-Authorship and the per-person contribution record for the case study are in
+Authorship and the collective-credit statement for the case study are in
 [`docs/contributing.md`](docs/contributing.md).
 
 ---
@@ -403,7 +403,7 @@ listed under Threats to Validity above and itemised in
 Industrial Engineering and Engineering Management, National Tsing Hua University · Hsinchu
 *Introduction to Machine Learning* · February – June 2026
 
-The sign-language case study is joint work with 陳暄承 and 倪歆絜; per-person contributions are
-recorded in [`docs/contributing.md`](docs/contributing.md).
+The sign-language case study is joint work with 陳暄承 and 倪歆絜, credited collectively; see
+[`docs/contributing.md`](docs/contributing.md).
 Code is released under the MIT Licence. Datasets, CKIPtagger models and course-supplied material
 retain their own terms — see [`LICENSE`](LICENSE).

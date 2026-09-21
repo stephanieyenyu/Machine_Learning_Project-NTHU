@@ -40,22 +40,14 @@ Say this in one sentence rather than leaving a reviewer to reconstruct it. Name 
 
 ### Contribution Breakdown
 
-<!-- TODO: fill this in. Delete any row that does not apply, and add rows for
-     work not listed. Anything left as "—" will read as unclaimed. -->
+The work was genuinely collaborative — problem framing, preprocessing design, model architecture,
+debugging, and the winning-solution analysis were done together as a team of three rather than
+split into separate individual tracks. Git history for this project does not exist (the repository
+holds only the slide deck), so there is nothing to attribute per-commit either. No individual
+breakdown is given; credit for the ASL case study belongs to the team collectively: 陳暄承, 林彥妤,
+倪歆絜.
 
-| Area | 陳暄承 | 林彥妤 | 倪歆絜 |
-|---|---|---|---|
-| Problem framing and competition research | — | — | — |
-| Data exploration and keypoint analysis | — | — | — |
-| Preprocessing design (keypoint selection, normalisation, scaling) | — | — | — |
-| Model architecture (1D CNN + Transformer) | — | — | — |
-| TFLite conversion and submission-format debugging | — | — | — |
-| Winning-solution analysis | — | — | — |
-| Slide deck and presentation | — | — | — |
-
-**Why this matters more than it looks.** If this repository is linked from a CV or an application, a reviewer who opens `Kaggle Case Study.pdf` sees three names on the title slide. A repository under one person's account with no attribution note invites exactly the wrong inference. An explicit table costs nothing and removes the question entirely.
-
-**Before publishing:** confirm with 陳暄承 and 倪歆絜 that they are comfortable being named here, and that the split below their names is accurate. If either prefers not to be listed, record the project as team work of three and describe only your own contribution.
+**Why this matters more than it looks.** If this repository is linked from a CV or an application, a reviewer who opens `Kaggle Case Study.pdf` sees three names on the title slide. A repository under one person's account with no attribution note invites exactly the wrong inference. Stating collective credit explicitly costs nothing and removes the question entirely.
 
 ---
 

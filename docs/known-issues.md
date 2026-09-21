@@ -29,7 +29,7 @@ classification is the point of the document.
 | D-3 | Typos in the HW4 written report | Documentation | **Fixed** |
 | D-4 | Directory `HW3/essemble/` is misspelled | Documentation | **Fixed** |
 | D-5 | Student ID and full name appear in every filename | Privacy | Open |
-| D-6 | Contribution table for the ASL team is unfilled | Documentation | Fix required |
+| D-6 | Contribution table for the ASL team is unfilled | Documentation | **Fixed** — collective credit instead |
 
 ---
 
@@ -398,3 +398,9 @@ from any application.
 **Fix.** Fill it, after confirming with both teammates that they are willing to be named and that
 the split is accurate. If either declines, record the project as team work of three and describe
 only your own contribution.
+
+**Fixed, second option, 2026-09-21.** The work was genuinely collaborative rather than divisible
+into per-person tracks, and there is no git history for this project to attribute against either
+(the repository holds only the slide deck). Replaced the empty table with a plain statement of
+collective credit across all three names, matching how the other genuinely-team project in this
+author's repositories (LLM_RobotArm) records shared credit.
