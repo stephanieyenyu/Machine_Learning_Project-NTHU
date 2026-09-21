@@ -15,8 +15,8 @@ classification is the point of the document.
 | B-1 | HW2's submitted configuration has no recorded score | Unverified | Open |
 | B-2 | HW3 report and code disagree on the learning rate | Unverified | Open |
 | B-3 | ASL notebook provenance is unrecorded | Unverified | Open |
-| C-1 | HW4's committed code is not the submitted model | Defect | Fix required |
-| C-2 | HW3's final ensemble cannot run — inputs not committed | Defect | Fix recommended |
+| C-1 | HW4's committed code is not the submitted model | Defect | **Fixed** — headline swapped to the reproducible figure |
+| C-2 | HW3's final ensemble cannot run — inputs not committed | Defect | **Fixed** — headline swapped to the reproducible figure |
 | C-3 | EX5 pins a TensorFlow version that no longer resolves | Defect | **Fixed** |
 | C-4 | EX4's source image was never committed | Defect | Fix recommended |
 | C-5 | EX2's t-SNE has no seed | Defect | **Fixed** |
@@ -164,6 +164,12 @@ earlier README presented where a leaderboard score belongs.
 **Fix.** Commit the three-model notebook. If it is unrecoverable, say so in the README and label
 0.94802 as an out-of-fold score from an earlier two-model version.
 
+**Fixed, second option, 2026-09-21.** The three-model notebook could not be recovered. README and
+`docs/metrics.md` now headline 0.94802 OOF AUC, correctly labelled as an out-of-fold figure from
+the committed two-model notebook rather than a leaderboard score, and state 0.94714 alongside it
+as the true final submission's Kaggle score, explicitly marked as not reproducible from this
+repository. Neither number is presented as something a reader could verify that it isn't.
+
 ---
 
 ### C-2　HW3's final ensemble cannot run — inputs not committed
@@ -184,6 +190,12 @@ roughly 270,000 rows of `id,label`, a few megabytes in total.
 *.csv
 !HW3/**/*.csv
 ```
+
+**Fixed, second option, 2026-09-21.** The four submission CSVs were not recoverable. README and
+`docs/metrics.md` now headline 0.98030 — the best single model, reproducible from the committed
+`0.98030.py` — and state 0.98054 alongside it as the true final submission's score, explicitly
+marked as not reproducible from this repository. The conditional-voting script and its logic stay
+committed as a readable record of the design; nothing about the script itself changed.
 
 ---
 
@@ -340,7 +352,11 @@ is the team's own — is now in the Sign-language progression section.
 Same formula, `Cumulative_Degradation × TyreLife`, two names. The report also gives a
 feature-engineering-stage OOF of 0.94795 where the notebook prints 0.94802 for its blend and
 0.94755 for LightGBM alone; none of the three matches another, because they come from different
-versions. Resolving C-1 resolves this.
+versions.
+
+**Still open.** C-1 was resolved by labelling the headline correctly rather than by recovering the
+report's version of the notebook, so this specific naming mismatch between the two artifacts is
+unaffected by that fix and remains unresolved.
 
 ---
 

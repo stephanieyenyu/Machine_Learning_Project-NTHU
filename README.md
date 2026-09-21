@@ -93,10 +93,10 @@ derivation appears in [`docs/metrics.md`](docs/metrics.md).
 
 | Measurement | Value | Nature |
 |---|---|---|
-| HW3 — irrigation need, final submission | 0.98054 | Kaggle score, from the written report |
-| HW3 — best single model | 0.98030 | Kaggle score, one input to the above |
-| HW4 — F1 pit stops, final submission | 0.94714 | Kaggle score, from the written report |
-| HW4 — committed notebook | 0.94802 AUC | Out-of-fold only; **a different model** — see below |
+| HW3 — reproducible from this repository | 0.98030 | Kaggle score, from the committed `0.98030.py` |
+| HW3 — actual final submission (historical) | 0.98054 | Kaggle score, from the written report; **not reproducible** — see below |
+| HW4 — reproducible from this repository | 0.94802 OOF AUC | From the committed two-model notebook, not a leaderboard score |
+| HW4 — actual final submission (historical) | 0.94714 | Kaggle score, from the written report; **not reproducible** — see below |
 | HW2 — store sales, best run | 0.40045 RMSLE | Public leaderboard, evidenced by filename only |
 | EX3 — Titanic | 0.80143 | Public leaderboard, evidenced by screenshot only |
 | Case study — sign language | 0.7433670 private · 0.6570489 public | Post-deadline submission; carries no rank |
@@ -105,11 +105,15 @@ derivation appears in [`docs/metrics.md`](docs/metrics.md).
 
 Four qualifications govern how these should be read.
 
-**The HW4 headline is not reproducible from this repository.** The written report records a
-three-model weighted soft vote — CatBoost 40%, LightGBM 35%, XGBoost 25% — scoring 0.94714. The
-committed notebook is a two-model fixed blend with no CatBoost anywhere in it. The code that
-produced the reported score is not here. This is the most serious gap in the repository and it is
-stated rather than smoothed over.
+**Neither HW3's nor HW4's actual final submission is reproducible from this repository.** HW3's
+report records a conditional-voting ensemble scoring 0.98054, but its four input CSVs are
+gitignored and were never committed — the script that produced it fails on its first read. HW4's
+report records a three-model weighted soft vote — CatBoost 40%, LightGBM 35%, XGBoost 25% —
+scoring 0.94714, but the committed notebook is a two-model fixed blend with no CatBoost anywhere
+in it; that code is not here at all, not merely uncommitted inputs. Both gaps are stated rather
+than smoothed over. Where this document needs one headline number per project, it uses the figure
+a reader can actually regenerate from what's committed — HW3's 0.98030, HW4's 0.94802 OOF — and
+states the historical submission score alongside it rather than in its place.
 
 **Two Kaggle scores rest on evidence weaker than program output.** HW2's 0.40045 is recorded
 only in a filename. EX3's 0.80143 is recorded only in a screenshot. Neither appears in any cell
@@ -198,12 +202,12 @@ The accepted cost is compute: five encoder fits instead of one, on a 630,000-row
 
 ## Evaluation
 
-### Kaggle results
+### Results
 
 | Project | Competition | Metric | Result | Basis |
 |---|---|---|---|---|
-| HW3 | Irrigation need | Balanced accuracy | 0.98054 | Final submission |
-| HW4 | F1 pit stops | AUC | 0.94714 | Final submission |
+| HW3 | Irrigation need | Balanced accuracy | 0.98030 | Reproducible from `0.98030.py` (final submission scored 0.98054, not reproducible) |
+| HW4 | F1 pit stops | OOF AUC | 0.94802 | Reproducible from the committed notebook (final submission scored 0.94714 Kaggle AUC, not reproducible) |
 | HW2 | Store sales | RMSLE | 0.40045 | Best recorded run |
 | EX3 | Titanic | Accuracy | 0.80143 | Public leaderboard, rank 825 |
 | Case study | Sign language | Top-1 accuracy | 0.7433670 | Post-deadline, private |

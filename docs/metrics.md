@@ -252,7 +252,7 @@ Final score     : 0.975697
 
 **Logic.** Three submission files (0.97954, 0.98017, 0.98018) vote. Where all three agree, the consensus label is used. Where they disagree, the label from 0.98030 is used.
 
-**Final Kaggle score: 0.98054.** Recorded in the written report (`HW3/Homework3_112034038_林彥妤.docx`), under *Final Decision*. This is the score of the submitted conditional-voting ensemble, and it beats the best single model (0.98030) by **+0.00024**. The earlier README quoted 0.98030 as HW3's headline result, which was the score of an *input file*, not of the submission. 0.98054 is the number that belongs in the results table.
+**Final Kaggle score: 0.98054.** Recorded in the written report (`HW3/Homework3_112034038_林彥妤.docx`), under *Final Decision*. This is the score of the submitted conditional-voting ensemble, and it beats the best single model (0.98030) by **+0.00024**. It is the true final submission, and it is not reproducible from this repository — the script that produced it needs four input CSVs excluded by `.gitignore` (see below). The README's headline result is 0.98030, the best score a reader can actually regenerate from committed code; 0.98054 is stated alongside it as the historical final score, not presented as if a reader could verify it.
 
 **Scale check.** The gain is real but tiny — 798 contested rows out of 270,000, worth 0.00024 balanced accuracy. Describe it as what it is: a defensive ensemble that protects the best model's floor while letting a consensus override it on the small set of rows where three independent models all disagree with it.
 
@@ -328,7 +328,11 @@ This is the most important discrepancy in the repository.
 
 `HW4/Homework4_112034038_林彥妤.docx` states under *Final Decision*: the submitted file used LightGBM 35%, XGBoost 25%, CatBoost 40%. No CatBoost appears anywhere in the committed notebook. **The code that produced the final score is not in this repository.**
 
-Two consequences. The README's old headline of 0.94802 was an out-of-fold number from a superseded two-model version, presented where a leaderboard score belongs. And the actual result, 0.94714, cannot be reproduced from anything committed here.
+The README's headline is 0.94802 OOF AUC — the number a reader can actually regenerate from the
+committed two-model notebook. It is not a leaderboard score, and is never presented as one. The
+true final submission, 0.94714 Kaggle AUC, is stated alongside it as the historical result;
+neither its CatBoost model nor the code that combined the three is in this repository, so it isn't
+presented as something a reader could verify.
 
 **Weight rationale, from the report.** CatBoost at 40% to lead on categorical features; LightGBM at 35% for fine-grained numeric boundaries; XGBoost at 25% as a regularised floor.
 
@@ -429,6 +433,4 @@ Ordered by how much each would matter to someone verifying this repository.
 | 7 | HW3 `0.979549` | Threshold weights fitted on the same OOF predictions used to report the score |
 | 8 | EX1 F1 table | Single 75-row split; differences are within noise |
 
-Items 1 and 2 are the ones that would actually damage credibility if a reader found them before you addressed them. Both are fixable: commit the HW4 ensemble code, and add one sentence to the ASL section explaining the notebook's provenance.
-
-Resolved by the written reports: HW3's final ensemble scored **0.98054**, and HW4's final submission scored **0.94714**. Neither number was in the README before.
+Items 1 and 2 are the ones that would actually damage credibility if a reader found them before you addressed them. The HW4 ensemble code is unrecoverable, not just uncommitted, so the fix applied was not to chase it down: the README's headline for HW3 and HW4 is now the figure a reader can actually regenerate from committed code (0.98030 and 0.94802 OOF respectively), with the true final submission scores (0.98054, 0.94714) stated alongside as historical record rather than presented as verifiable. Item 2 got its provenance sentence in the sign-language section, naming the forked notebook and the evidence that the model is the team's own.
