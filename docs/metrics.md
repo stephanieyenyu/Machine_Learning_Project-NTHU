@@ -206,7 +206,7 @@ The README's "0.9795" is the **second** number — after threshold tuning, not t
 
 **Caveat on the Optuna step.** The multipliers are fitted on the same out-of-fold predictions used to report 0.979549. That score is therefore optimistic — it is a training score for the threshold search. An honest estimate would need a further held-out split. The gain is small enough (0.0003) that it may not survive on the test set.
 
-### CatBoost model — `HW3/essemble/irrigation-need-catboost-threshold-optimization.ipynb`
+### CatBoost model — `HW3/ensemble/irrigation-need-catboost-threshold-optimization.ipynb`
 
 **Printed output:**
 

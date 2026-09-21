@@ -4,7 +4,8 @@ Each entry says whether it was checked against source code, against a cell outpu
 written report, and what is still unconfirmed. Nothing is quietly deleted once resolved — the
 classification is the point of the document.
 
-**Snapshot** 2026-09-05 · 14 notebooks · 7 scripts · 4 written reports · 9 projects
+**Snapshot** 2026-09-05 · updated 2026-09-21 (C-3, C-5, C-6, C-8, D-1, D-3, D-4) · 14 notebooks ·
+7 scripts · 4 written reports · 9 projects
 
 | # | Issue | Class | Disposition |
 |---|---|---|---|
@@ -16,17 +17,17 @@ classification is the point of the document.
 | B-3 | ASL notebook provenance is unrecorded | Unverified | Open |
 | C-1 | HW4's committed code is not the submitted model | Defect | Fix required |
 | C-2 | HW3's final ensemble cannot run — inputs not committed | Defect | Fix recommended |
-| C-3 | EX5 pins a TensorFlow version that no longer resolves | Defect | Fix recommended |
+| C-3 | EX5 pins a TensorFlow version that no longer resolves | Defect | **Fixed** |
 | C-4 | EX4's source image was never committed | Defect | Fix recommended |
-| C-5 | EX2's t-SNE has no seed | Defect | Fix recommended |
-| C-6 | HW2 scripts train a dead baseline before the real model | Defect | Fix recommended |
+| C-5 | EX2's t-SNE has no seed | Defect | **Fixed** |
+| C-6 | HW2 scripts train a dead baseline before the real model | Defect | **Fixed** |
 | C-7 | Three external data dependencies may expire | Design limitation | Accepted, not fixed |
-| C-8 | No dependency manifest | Defect | Fix recommended |
+| C-8 | No dependency manifest | Defect | **Fixed** |
 | C-9 | Colab and Kaggle assumptions are not interchangeable | Design limitation | Accepted, not fixed |
-| D-1 | ASL submissions were post-deadline; README does not say so | Documentation | Fix required |
+| D-1 | ASL submissions were post-deadline; README does not say so | Documentation | **Fixed** |
 | D-2 | Report and code use different names for the same feature | Documentation | Fix recommended |
-| D-3 | Typos in the HW4 written report | Documentation | Fix recommended |
-| D-4 | Directory `HW3/essemble/` is misspelled | Documentation | Fix recommended |
+| D-3 | Typos in the HW4 written report | Documentation | **Fixed** |
+| D-4 | Directory `HW3/essemble/` is misspelled | Documentation | **Fixed** |
 | D-5 | Student ID and full name appear in every filename | Privacy | Open |
 | D-6 | Contribution table for the ASL team is unfilled | Documentation | Fix required |
 
@@ -202,6 +203,9 @@ fails on Python 3.12 and the cell errors on every run before the remainder proce
 **Severity.** Low. The rest of the notebook runs regardless, but a visible error in the first
 cell is the first thing a reader sees.
 
+**Fixed 2026-09-21.** The pinned install cell was removed; `ckiptagger`'s own dependency chain
+already pulls in a working TensorFlow, confirmed by cell 2's output in the same notebook.
+
 ---
 
 ### C-4　EX4's source image was never committed
@@ -232,6 +236,10 @@ scatter plot cannot be regenerated.
 **Severity.** Low in effect, notable in contrast. HW3 and HW4 seed exhaustively; EX1 seeds the
 split and two of four models; EX2 seeds nothing. The inconsistency is the finding.
 
+**Fixed 2026-09-21.** `random_state=42` added. The committed scatter plot's exact point
+positions predate this fix and will differ on the next run — that is the intended effect of
+adding a seed going forward, not a new inconsistency.
+
 ---
 
 ### C-6　HW2 scripts train a dead baseline before the real model
@@ -245,6 +253,11 @@ hyperparameters for every one of the three files. Runtime is roughly doubled for
 is used.
 
 **Fix.** Delete the first block from all three scripts and their notebook counterparts.
+
+**Fixed 2026-09-21.** The dead first block — its preprocessing chain, the 1000-tree model, and
+the `baseline.csv` download — was removed from all three scripts and all three notebooks. Each
+now contains exactly one `XGBRegressor(` call, the one matching its filename's score. The
+retained Kaggle download/unzip cells were kept since the real block depends on them.
 
 ---
 
@@ -273,6 +286,10 @@ does not exist.
 **Consequence.** C-3 is the first instance of the resulting breakage and will not be the last.
 
 **Fix.** Pin the libraries listed under Tech Stack in the README.
+
+**Fixed, partially, 2026-09-21.** `requirements.txt` now lists the fourteen third-party packages
+named in the README's Tech Stack. Unpinned — no environment freeze existed to pin honest version
+numbers against, and pinning would have been guessed rather than verified.
 
 ---
 
@@ -306,6 +323,11 @@ that does not exist.
 the notebook the work was forked from and confirming the model inside is the team's own. See B-3
 for the evidence supporting that claim.
 
+**Fixed 2026-09-21.** The post-deadline status already appeared at every figure (Measurement
+Basis, the qualifications below it, and the Evaluation table). What was missing — a sentence
+naming the notebook's `1st place solution - inference` title and the B-3 evidence that the model
+is the team's own — is now in the Sign-language progression section.
+
 ---
 
 ### D-2　Report and code use different names for the same feature
@@ -338,11 +360,18 @@ Fix these before any of the text is reused in a CV, a statement of purpose, or a
 
 The misspelled column name appears in the report only; the code is correct.
 
+**Fixed 2026-09-21.** All seven replaced by direct edit of `word/document.xml`, verified by exact
+string match before and after and by XSD schema validation; no other content or formatting
+changed.
+
 ---
 
 ### D-4　Directory `HW3/essemble/` is misspelled
 
 Should be `ensemble`. `git mv` preserves history, so the rename is safe.
+
+**Fixed 2026-09-21.** Renamed via `git mv`; README and `docs/metrics.md` references updated to
+match.
 
 ---
 

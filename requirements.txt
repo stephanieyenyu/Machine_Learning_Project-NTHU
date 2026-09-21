@@ -1,0 +1,14 @@
+lightgbm
+xgboost
+catboost
+scikit-learn
+tensorflow
+tensorflow-decision-forests
+optuna
+scipy
+opencv-python
+scikit-image
+ckiptagger
+pandas
+numpy
+matplotlib

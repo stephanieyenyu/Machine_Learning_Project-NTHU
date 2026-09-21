@@ -233,6 +233,14 @@ transferable part.
 The published first-place solution reached 0.81 public and 0.88 private. That describes another
 competitor's work and is quoted only as a reference point.
 
+**The submitted notebook is titled `1st place solution - inference`, and the model inside is the
+team's own.** The title is carried over from a public notebook the submission was forked from, not
+a claim about the result. Two facts support that: the deck's own step-1 submission from the same
+notebook scored 0.0087, near the 0.004 floor for random guessing across 250 classes, which the
+actual first-place model could not produce; and the reported 0.743 sits well below the actual
+first-place score of 0.88, which a copy of the winning model would not. See
+[`docs/known-issues.md`](docs/known-issues.md) B-3 for the full evidence chain.
+
 ---
 
 ## Threats to Validity
@@ -321,7 +329,6 @@ repository shows is how the problems were diagnosed, not that the results genera
 │   ├── Homework2_112034038_林彥妤.ipynb         Store sales — submitted config, 2500 / 0.016 / depth 11
 │   ├── Homework2_112034038_林彥妤.py            Script form of the above
 │   ├── Homework2_112034038_林彥妤.docx          Written report
-│   ├── Homework2_112034038_林彥妤.doc           Superseded binary copy
 │   ├── 0.40045.ipynb                           Best recorded run — 2000 / 0.020 / depth 11
 │   ├── 0.40045.py                              Script form
 │   ├── 0.40115.ipynb                           Earlier run — 1800 / 0.025 / depth 9
@@ -337,7 +344,7 @@ repository shows is how the problems were diagnosed, not that the results genera
 │   │   ├── 0.98030.py                          Script form
 │   │   ├── lgb_0.98030_probibilities.ipynb     Same model, also exporting class probabilities
 │   │   └── lgb_0.98030_probibilities.py        Script form
-│   └── essemble/
+│   └── ensemble/
 │       └── irrigation-need-catboost-threshold-optimization.ipynb
 │                                               CatBoost, 10×5 nested CV, Nelder–Mead threshold search
 ├── HW4/
