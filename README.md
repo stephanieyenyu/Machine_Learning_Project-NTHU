@@ -86,6 +86,30 @@ Authorship and the collective-credit statement for the case study are in
 
 ---
 
+## Test Setup and Success Criterion
+
+There is no single success criterion across these nine projects, because the course set a
+different one for each. Five were scored by Kaggle against a held-out test set the submitter
+never sees — RMSLE for HW2, multi-class accuracy for HW3, ROC AUC for HW4, accuracy for EX3,
+and the sign-language competition's own metric. Three produced no metric at all: EX2 is a t-SNE
+embedding judged by whether the classes separate visually, EX4 an edge map and a registration
+judged by inspection, EX5 a segmentation and tag output read by eye. EX1 and HW1 were scored
+against the assignment's own rubric, EX1 on positive-class F1 over a single 75-row split.
+
+Where a leaderboard existed, it is the criterion, and it is a hard one: the split is fixed, the
+test labels are unavailable, and resubmission is capped. Where no leaderboard existed, there is
+no criterion to appeal to beyond the rubric, and this file does not invent one. Projects in the
+second group are not reported as if they had been validated.
+
+Two things this setup cannot establish. **None of these models was tested on data collected
+after the competition closed**, so every figure here describes behaviour on a distribution that
+was fixed in advance. And **two headline numbers cannot be regenerated from the code committed
+here** — HW3's 0.98054 and HW4's 0.94714 — because the inputs or the model code were never
+committed. Both are named in Measurement Basis rather than quietly replaced by the figures that
+do reproduce.
+
+---
+
 ## Measurement Basis
 
 Numbers in this repository come from three different places and are not interchangeable. Every
@@ -128,6 +152,84 @@ throughout; the middle figure has no screenshot backing it.
 0.979549 is an out-of-fold figure whose class-weight multipliers were fitted on the same
 out-of-fold predictions used to report it, which makes it optimistic by an unquantified margin.
 It is not the Kaggle score and is not presented as one.
+
+---
+
+## Problem Statement
+
+Across these nine projects the difficulty was rarely the model. A gradient-boosted tree fits in
+four lines, and in every tabular project the base model reached within a fraction of a percent
+of the submitted result on its first run. What separated a mediocre submission from a good one
+sat on either side of training.
+
+On the input side, the question was what the model is allowed to learn from. EX1's `time` column
+encodes the follow-up window, which is systematically shorter for patients who died; keeping it
+leaks the outcome. HW4's `Driver` column identifies drivers who do not appear in the test set.
+HW3's target encoding is only sound if it is refitted inside each fold, because fitting it once
+on the full training set puts label information into the validation score. None of these is a
+cleaning step, and no library makes the decision.
+
+On the output side, the question was what to do once the model is frozen. HW3's entire reported
+gain came after training stopped — an Optuna search over per-class probability multipliers, then
+a conditional vote reconciling four submissions that disagreed. HW4 spent three submissions
+discovering that its metric had stopped responding, because tuning was changing probabilities
+without changing their order, and AUC only reads the order.
+
+The sign-language case study posed a different problem again: the competition capped the model
+at 40 MB and 100 ms per video and fed it raw landmark matrices, which meant preprocessing could
+not live in NumPy at all. Architecture was chosen under a deployment budget rather than an
+accuracy budget.
+
+The problem this repository addresses is therefore provenance as much as modelling — keeping a
+record, project by project, of which number came from where, which ones a reader can regenerate,
+and which ones cannot be regenerated at all.
+
+---
+
+## System Architecture
+
+This repository has no system architecture in the usual sense. There is no service, no API, no
+database and no deployment target. Each project is a standalone notebook that reads a dataset
+and writes either a metric or a submission file. What the projects share is a pipeline shape,
+and that is the level at which the design decisions live.
+
+Seven of the nine — EX1, EX3, HW1, HW2, HW3, HW4 and the tabular half of EX2 — follow the same
+five stages.
+
+```mermaid
+flowchart LR
+    A[Acquire<br/>Kaggle CLI · gdown · manual upload] --> B[Clean<br/>fill missing · drop leaks · merge tables]
+    B --> C[Encode<br/>label · frequency · target encoding]
+    C --> D[Train<br/>K-fold CV · early stopping]
+    D --> E[Post-process<br/>threshold tuning · blending · voting]
+    E --> F[(submission.csv<br/>or metric)]
+
+    style C fill:#fff3cd,stroke:#b8860b
+    style E fill:#fff3cd,stroke:#b8860b
+```
+
+Stage boundaries are not enforced by any code structure. They exist as cell groups inside each
+notebook; nothing is importable and no stage is reused across projects. That is a real cost and
+it is not hidden — it is why HW3's voting script cannot run here, and why a fix in one project
+does not propagate to the others.
+
+The two highlighted stages are where the margin lives. Stages 1 and 2 are routine in every
+project. Almost every point of difference between a mediocre and a good result sits in **Encode**
+and **Post-process**.
+
+| Stage | Routine version | What actually moved the score |
+|---|---|---|
+| Encode | Label-encode categoricals | HW3: digit extraction per decimal place, frequency encoding with a rare-value bucket, out-of-fold target encoding |
+| Train | One model, one split | HW3 / HW4: 5- or 10-fold CV, early stopping, per-fold seeds |
+| Post-process | `argmax` | HW3: Optuna class-weight search, then conditional voting. HW4: fixed-weight blend |
+
+Two projects sit outside this shape. EX4 is a transform chain whose every stage is inspected
+visually rather than scored. The sign-language case study inverts the pipeline entirely:
+preprocessing compiles into the network's first layer, because the inference harness feeds raw
+coordinate matrices straight to the model.
+
+Per-project data flows, the HW3 and sign-language diagrams, and the cross-cutting notes on
+runtimes and seed control are in [`docs/architecture.md`](docs/architecture.md).
 
 ---
 
